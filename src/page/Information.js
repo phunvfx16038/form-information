@@ -101,10 +101,6 @@ const Information = () => {
     }
   }, [data.city, data.major]);
 
-  const handleChangeProvince = (e) => {
-    setCity(e.target.value);
-  };
-
   const validateError = () => {
     //validate name
     if (data.name === "") {
@@ -154,7 +150,7 @@ const Information = () => {
     validateError();
     console.log(validateError());
     if (validateError()) {
-      console.log("complete");
+      console.log(data);
     }
   };
 
@@ -167,7 +163,7 @@ const Information = () => {
         <Form.Control
           type="text"
           placeholder="Họ và tên"
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setData({ ...data, name: e.target.value })}
         />
         <div className="text-danger">{errors.name}</div>
       </Form.Group>
@@ -179,7 +175,7 @@ const Information = () => {
             <Form.Label>Tỉnh/Thành phố</Form.Label>
             <Form.Select
               aria-label="Default select example"
-              onChange={handleChangeProvince}
+              onChange={(e) => setData({ ...data, city: e.target.value })}
             >
               <option value="all">Chọn Tỉnh/thành phố</option>
               <option value="hcm"> Hồ Chí Minh</option>
@@ -192,7 +188,7 @@ const Information = () => {
             <Form.Label>Quận/huyện</Form.Label>
             <Form.Select
               aria-label="Default select example"
-              onChange={(e) => setDistrict(e.target.value)}
+              onChange={(e) => setData({ ...data, district: e.target.value })}
             >
               {province.map((data, index) => (
                 <option value={data.value} key={index}>
@@ -209,7 +205,7 @@ const Information = () => {
         <Form.Label>Quê quán</Form.Label>
         <Form.Select
           aria-label="Default select example"
-          onChange={(e) => setCountry(e.target.value)}
+          onChange={(e) => setData({ ...data, country: e.target.value })}
         >
           <option value="all">Chọn nơi ở</option>
           <option value="hcm"> Hồ Chí Minh</option>
@@ -223,7 +219,7 @@ const Information = () => {
         <Form.Control
           type="text"
           placeholder="Năm sinh"
-          onChange={(e) => setYear(e.target.value)}
+          onChange={(e) => setData({ ...data, year: e.target.value })}
         />
         <div className="text-danger">{errors.year}</div>
       </Form.Group>
@@ -234,7 +230,7 @@ const Information = () => {
         <Form.Label>Trình độ</Form.Label>
         <Form.Select
           aria-label="Default select example"
-          onChange={(e) => setEducation(e.target.value)}
+          onChange={(e) => setData({ ...data, education: e.target.value })}
         >
           <option value="all">Chọn trình độ</option>
           <option value="university"> Đại học</option>
@@ -248,7 +244,7 @@ const Information = () => {
         <Form.Label>Chuyên ngành</Form.Label>
         <Form.Select
           aria-label="Default select example"
-          onChange={(e) => setMajor(e.target.value)}
+          onChange={(e) => setData({ ...data, major: e.target.value })}
         >
           <option value="all">Chọn chuyên ngành</option>
           <option value="sale">Kinh doanh dịch vụ</option>
@@ -261,7 +257,7 @@ const Information = () => {
         <Form.Label>Chức danh công việc</Form.Label>
         <Form.Select
           aria-label="Default select example"
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => setData({ ...data, title: e.target.value })}
         >
           {selectMajor.map((data, index) => (
             <option value={data.value} key={index}>
@@ -276,7 +272,7 @@ const Information = () => {
         <Form.Label>Lĩnh vực làm việc</Form.Label>
         <Form.Select
           aria-label="Default select example"
-          onChange={(e) => setField(e.target.value)}
+          onChange={(e) => setData({ ...data, field: e.target.value })}
         >
           <option value="all">Chọn lĩnh vực làm việc</option>
           <option value="trade">Thương mại </option>
