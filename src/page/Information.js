@@ -59,16 +59,18 @@ const titleArray = [
 
 const Information = () => {
   const [province, setProvince] = useState(provinceArr);
-  const [title, setTitle] = useState("");
-  const [major, setMajor] = useState("");
-  const [name, setName] = useState("");
-  const [city, setCity] = useState("");
   const [selectMajor, setSelectMajor] = useState(titleArray);
-  const [district, setDistrict] = useState("");
-  const [country, setCountry] = useState("");
-  const [year, setYear] = useState("");
-  const [education, setEducation] = useState("");
-  const [field, setField] = useState("");
+  const [data, setData] = useState({
+    name: "",
+    title: "",
+    major: "",
+    city: "",
+    district: "",
+    country: "",
+    year: "",
+    education: "",
+    field: "",
+  });
   const [errors, setErrors] = useState({
     name: "",
     title: "",
@@ -82,73 +84,70 @@ const Information = () => {
   });
 
   useEffect(() => {
-    if (city !== "") {
+    if (data.city !== "") {
       const newProviceData = provinceArr.filter((province) => {
-        return province.city.toLowerCase() === city.toLowerCase();
+        return province.city.toLowerCase() === data.city.toLowerCase();
       });
       console.log(newProviceData);
       setProvince(newProviceData);
     }
 
-    if (major !== "") {
-      const newMajor = titleArray.filter((data) => {
-        return data.type.toLowerCase() === major.toLowerCase();
+    if (data.major !== "") {
+      const newMajor = titleArray.filter((major) => {
+        return major.type.toLowerCase() === data.major.toLowerCase();
       });
       console.log(newMajor);
       setSelectMajor(newMajor);
     }
-  }, [city, major]);
+  }, [data.city, data.major]);
 
   const handleChangeProvince = (e) => {
     setCity(e.target.value);
   };
 
   const validateError = () => {
-    const err = {};
     //validate name
-    if (name === "") {
+    if (data.name === "") {
       const message = "Vui lòng nhập Họ và tên ";
-      err.name = message;
+      errors.name = message;
     }
-    if (title === "") {
+    if (data.title === "") {
       const message = "Vui lòng nhập Chức danh công việc ";
-      err.title = message;
+      errors.title = message;
     }
 
-    if (major === "") {
+    if (data.major === "") {
       const message = "Vui lòng nhập Chuyên ngành ";
-      err.major = message;
+      errors.major = message;
     }
 
-    if (city === "") {
+    if (data.city === "") {
       const message = "Vui lòng nhập Tỉnh/thành phố ";
-      err.city = message;
+      errors.city = message;
     }
 
-    if (country === "") {
+    if (data.country === "") {
       const message = "Vui lòng nhập Quê quán ";
-      err.country = message;
+      errors.country = message;
     }
 
-    if (district === "") {
+    if (data.district === "") {
       const message = "Vui lòng nhập Quận/huyện ";
-      err.district = message;
+      errors.district = message;
     }
-    if (year === "") {
+    if (data.year === "") {
       const message = "Vui lòng nhập Năm sinh ";
-      err.year = message;
+      errors.year = message;
     }
-    if (education === "") {
+    if (data.education === "") {
       const message = "Vui lòng nhập Học vấn ";
-      err.education = message;
+      errors.education = message;
     }
-    if (field === "") {
+    if (data.field === "") {
       const message = "Vui lòng nhập Lĩnh vực làm việc ";
-      err.field = message;
+      errors.field = message;
     }
-    setErrors({ ...err });
-
-    return Object.keys(err).length < 1;
+    setErrors({ ...errors });
   };
 
   const handleSubmit = () => {
@@ -191,7 +190,10 @@ const Information = () => {
 
           <div>
             <Form.Label>Quận/huyện</Form.Label>
-            <Form.Select aria-label="Default select example">
+            <Form.Select
+              aria-label="Default select example"
+              onChange={(e) => setDistrict(e.target.value)}
+            >
               {province.map((data, index) => (
                 <option value={data.value} key={index}>
                   {data.name}
