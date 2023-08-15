@@ -190,6 +190,7 @@ const Information = () => {
               aria-label="Default select example"
               onChange={(e) => setData({ ...data, district: e.target.value })}
             >
+              <option>Chọn Quận/Huyện</option>
               {province.map((data, index) => (
                 <option value={data.value} key={index}>
                   {data.name}
@@ -259,6 +260,7 @@ const Information = () => {
           aria-label="Default select example"
           onChange={(e) => setData({ ...data, title: e.target.value })}
         >
+          <option>Chọn Chức danh</option>
           {selectMajor.map((data, index) => (
             <option value={data.value} key={index}>
               {data.name}
